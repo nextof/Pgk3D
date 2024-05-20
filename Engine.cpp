@@ -2,41 +2,41 @@
 
 	 GLfloat xyzArray[] = {
 		// front
-		-0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,  0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                  // 0
-		0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                  // 1
-		0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                  // 2
-		-0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                  // 3
-											                     
-		// top								                     
-		-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 4
-		0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 5
-		0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,     0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 6
-		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 7
-											                    
-		// left								                    
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,  0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                  // 8
-		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                  // 9
-		-0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                  // 10
-		-0.5f, -0.5f, 0.5f, 0.0f, 1.0f, 0.0f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                  // 11
-											                    
-		// right							                    
-		0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 12
-		0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 13
-		0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,     0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 14
-		0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 15
-											                    
-		// back								                    
-		-0.5f, -0.5f, 0.5f, 0.7f, 0.7f, 0.7f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 16
-		0.5f, -0.5f, 0.5f, 0.7f, 0.7f, 0.7f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 17
-		0.5f, 0.5f, 0.5f, 0.7f, 0.7f, 0.7f,     0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 18
-		-0.5f, 0.5f, 0.5f, 0.7f, 0.7f, 0.7f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 19
-											                
-		// bottom							                
-		-0.5f, -0.5f, 0.5f, 0.3f, 0.3f, 0.3f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 20
-		0.5f, -0.5f, 0.5f, 0.3f, 0.3f, 0.3f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 21
-		0.5f, -0.5f, -0.5f, 0.3f, 0.3f, 0.3f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f,                 // 22
-		-0.5f, -0.5f, -0.5f, 0.3f, 0.3f, 0.3f,   0.0f, 0.0f,      0.0f, -1.0f, 0.0f                 // 23
-	};										                     
+		-0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,            // 0
+		0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,             // 1
+		0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,              // 2
+		-0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,             // 3
+											   
+		// top								   
+		-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,            // 4
+		0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,             // 5
+		0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,              // 6
+		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,             // 7
+											   
+		// left								   
+		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,            // 8
+		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,             // 9
+		-0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,              // 10
+		-0.5f, -0.5f, 0.5f, 0.0f, 1.0f, 0.0f,             // 11
+											   
+		// right							   
+		0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f,            // 12
+		0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f,             // 13
+		0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,              // 14
+		0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f,             // 15
+											   
+		// back								   
+		-0.5f, -0.5f, 0.5f, 0.7f, 0.7f, 0.7f,            // 16
+		0.5f, -0.5f, 0.5f, 0.7f, 0.7f, 0.7f,             // 17
+		0.5f, 0.5f, 0.5f, 0.7f, 0.7f, 0.7f,              // 18
+		-0.5f, 0.5f, 0.5f, 0.7f, 0.7f, 0.7f,             // 19
+											   
+		// bottom							   
+		-0.5f, -0.5f, 0.5f, 0.3f, 0.3f, 0.3f,            // 20
+		0.5f, -0.5f, 0.5f, 0.3f, 0.3f, 0.3f,             // 21
+		0.5f, -0.5f, -0.5f, 0.3f, 0.3f, 0.3f,            // 22
+		-0.5f, -0.5f, -0.5f, 0.3f, 0.3f, 0.3f,           // 23
+	};										   
 
 	GLuint triangleVertexIndices[] = {
 		// front
@@ -198,10 +198,10 @@ void Engine::run()
 	EBO EBO1(triangleVertexIndices, sizeof(triangleVertexIndices));
 
 	// Links VBO attributes such as coordinates and colors to VAO
-	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
-	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
-	VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+//	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
+	//VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
 	// Unbind all to prevent accidentally modifying them
 	VAO1.Unbind();
 	VBO1.Unbind();
