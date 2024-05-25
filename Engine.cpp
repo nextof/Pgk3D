@@ -4,7 +4,7 @@
 #define M_PI 3.14159265358979323846
 
 
-bool draw1 = false;
+bool draw1 = true;
 bool draw2 = false;
 bool draw3 = false;
 int fps = 60;
