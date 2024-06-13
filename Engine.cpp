@@ -1,6 +1,76 @@
 #include "Engine.h"
+#include <vector>
+#include <cmath>
+#define M_PI 3.14159265358979323846
 
+// Okrąg
+// Funkcja generująca wierzchołki kuli
+std::vector<GLfloat> generateSphereVertices(float radius, int sectorCount, int stackCount) {
+	std::vector<GLfloat> vertices;
+	float x, y, z, xy;
+	float nx, ny, nz, lengthInv = 1.0f / radius;
+	float s, t;
 
+	float sectorStep = 2 * M_PI / sectorCount;
+	float stackStep = M_PI / stackCount;
+	float sectorAngle, stackAngle;
+
+	for (int i = 0; i <= stackCount; ++i) {
+		stackAngle = M_PI / 2 - i * stackStep;
+		xy = radius * cosf(stackAngle);
+		z = radius * sinf(stackAngle);
+
+		for (int j = 0; j <= sectorCount; ++j) {
+			sectorAngle = j * sectorStep;
+
+			x = xy * cosf(sectorAngle) - 4.0f; // Przesunięcie w lewo o 4 jednostki
+			y = xy * sinf(sectorAngle);
+			vertices.push_back(x);
+			vertices.push_back(y);
+			vertices.push_back(z);
+
+			nx = x * lengthInv;
+			ny = y * lengthInv;
+			nz = z * lengthInv;
+			vertices.push_back(nx);
+			vertices.push_back(ny);
+			vertices.push_back(nz);
+
+			s = (float)j / sectorCount;
+			t = (float)i / stackCount;
+			vertices.push_back(s);
+			vertices.push_back(t);
+		}
+	}
+
+	return vertices;
+}
+
+// Funkcja generująca Indeksy kuli
+std::vector<GLuint> generateSphereIndices(int sectorCount, int stackCount) {
+	std::vector<GLuint> indices;
+	int k1, k2;
+	for (int i = 0; i < stackCount; ++i) {
+		k1 = i * (sectorCount + 1);
+		k2 = k1 + sectorCount + 1;
+
+		for (int j = 0; j < sectorCount; ++j, ++k1, ++k2) {
+			if (i != 0) {
+				indices.push_back(k1);
+				indices.push_back(k2);
+				indices.push_back(k1 + 1);
+			}
+
+			if (i != (stackCount - 1)) {
+				indices.push_back(k1 + 1);
+				indices.push_back(k2);
+				indices.push_back(k2 + 1);
+			}
+		}
+	}
+
+	return indices;
+}
 
 // Sześcian
 GLfloat cubeArray[] = {
@@ -197,8 +267,27 @@ Engine::~Engine()
 void Engine::run()
 {
 	// Generates Shader object using shaders default.vert and default.frag
-	Shader shaderProgram("default.vert", "default.frag");
+	//Shader shaderProgram("default.vert", "default.frag");
 	Shader shaderProgram2("default.vert", "default.frag");
+
+	std::vector<GLfloat> sphereVertices = generateSphereVertices(1.0f, 36, 18);
+	std::vector<GLuint> sphereIndices = generateSphereIndices(36, 18);
+
+
+	// Tworzenie kuli
+	VAO VAOSphere;
+	VAOSphere.Bind();
+
+	VBO VBOSphere(sphereVertices.data(), sphereVertices.size() * sizeof(GLfloat));
+	EBO EBOSphere(sphereIndices.data(), sphereIndices.size() * sizeof(GLuint));
+
+	VAOSphere.LinkAttrib(VBOSphere, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAOSphere.LinkAttrib(VBOSphere, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAOSphere.LinkAttrib(VBOSphere, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
+	VAOSphere.Unbind();
+	VBOSphere.Unbind();
+	EBOSphere.Unbind();
 
 
 	//Tworzenie trójkąta
@@ -263,7 +352,7 @@ void Engine::run()
 
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
-	glm::mat4 lightModel = glm::mat4(1.0f);
+	glm::mat4 lightModel = glm::mat4(4.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
 	glm::vec3 pyramidPos = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -275,16 +364,16 @@ void Engine::run()
 	glm::mat4 triangleModel = glm::mat4(1.0f);
 	triangleModel = glm::translate(triangleModel, trianglePos);
 
-
-	//lightShader.Activate();
-	//glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
-	//glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-	shaderProgram.Activate();
+	
+	lightShader.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
+	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	//shaderProgram.Activate();
 	shaderProgram2.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram2.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram2.ID, "model"), 1, GL_FALSE, glm::value_ptr(triangleModel));
-	//glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-//	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+	glUniform4f(glGetUniformLocation(shaderProgram2.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	glUniform3f(glGetUniformLocation(shaderProgram2.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
 
 
@@ -329,12 +418,12 @@ void Engine::run()
 
 
 		// Tells OpenGL which Shader Program we want to use
-		shaderProgram.Activate();
+		//shaderProgram.Activate();
 		shaderProgram2.Activate();
 		// Exports the camera Position to the Fragment Shader for specular lighting
-		glUniform3f(glGetUniformLocation(shaderProgram.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+		glUniform3f(glGetUniformLocation(shaderProgram2.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 		// Export the camMatrix to the Vertex Shader of the pyramid
-		camera.Matrix(shaderProgram, "camMatrix");
+		camera.Matrix(shaderProgram2, "camMatrix");
 		// Binds texture so that is appears in rendering
 		//brickTex.Bind();
 		// Bind the VAO so OpenGL knows to use it
@@ -349,15 +438,18 @@ void Engine::run()
 		VAOTriangle.Bind();
 		glDrawElements(GL_TRIANGLES, sizeof(triangleIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
+		// Kula
+		VAOSphere.Bind();
+		glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0);
 
 		// Tells OpenGL which Shader Program we want to use
-		//lightShader.Activate();
+		lightShader.Activate();
 		// Export the camMatrix to the Vertex Shader of the light cube
-		//camera.Matrix(lightShader, "camMatrix");
+		camera.Matrix(lightShader, "camMatrix");
 		// Bind the VAO so OpenGL knows to use it
-		//lightVAO.Bind();
+		lightVAO.Bind();
 		// Draw primitives, number of indices, datatype of indices, index of indices
-		//glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 
 		// Swap the back buffer with the front buffer
@@ -377,8 +469,12 @@ void Engine::run()
 	VAOTriangle.Delete();
 	VBOTriangle.Delete();
 	EBOTriangle.Delete();
+	// Usuwanie kuli
+	VAOSphere.Delete();
+	VBOSphere.Delete();
+	EBOSphere.Delete();
 	brickTex.Delete();
-	shaderProgram.Delete();
+	shaderProgram2.Delete();
 	lightVAO.Delete();
 	lightVBO.Delete();
 	lightEBO.Delete();
