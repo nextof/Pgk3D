@@ -10,6 +10,7 @@ bool draw3 = false;
 int fps = 60;
 
 
+
 // Okrąg
 // Funkcja generująca wierzchołki kuli
 std::vector<GLfloat> generateSphereVertices(float radius, int sectorCount, int stackCount) {
@@ -80,42 +81,43 @@ std::vector<GLuint> generateSphereIndices(int sectorCount, int stackCount) {
 }
 
 // Sześcian
+// Sześcian
 GLfloat cubeArray[] = {
 	// front
-	-0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,            // 0
-	0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,             // 1
-	0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,              // 2
-	-0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,             // 3
+	-0.5f+4.0f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,            // 0
+	0.5f + 4.0f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,             // 1
+	0.5f + 4.0f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,              // 2
+	-0.5f + 4.0f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,             // 3
 
 	// top								   
-	-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,            // 4
-	0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,             // 5
-	0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,              // 6
-	-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,             // 7
+	-0.5f + 4.0f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,            // 4
+	0.5f + 4.0f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,             // 5
+	0.5f + 4.0f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,              // 6
+	-0.5f + 4.0f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,             // 7
 
 	// left								   
-	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,            // 8
-	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,             // 9
-	-0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,              // 10
-	-0.5f, -0.5f, 0.5f, 0.0f, 1.0f, 0.0f,             // 11
+	-0.5f + 4.0f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,            // 8
+	-0.5f + 4.0f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,             // 9
+	-0.5f + 4.0f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,              // 10
+	-0.5f + 4.0f, -0.5f, 0.5f, 0.0f, 1.0f, 0.0f,             // 11
 
 	// right							   
-	0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f,            // 12
-	0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 0.0f,             // 13
-	0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f,              // 14
-	0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 0.0f,             // 15
+	0.5f + 4.0f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f,            // 12
+	0.5f + 4.0f, 0.5f, -0.5f, 1.0f, 1.0f, 0.0f,             // 13
+	0.5f + 4.0f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f,              // 14
+	0.5f + 4.0f, -0.5f, 0.5f, 1.0f, 1.0f, 0.0f,             // 15
 
 	// back								   
-	-0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 1.0f,            // 16
-	0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 1.0f,             // 17
-	0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 1.0f,              // 18
-	-0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 1.0f,             // 19
+	-0.5f + 4.0f, -0.5f, 0.5f, 1.0f, 0.0f, 1.0f,            // 16
+	0.5f + 4.0f, -0.5f, 0.5f, 1.0f, 0.0f, 1.0f,             // 17
+	0.5f + 4.0f, 0.5f, 0.5f, 1.0f, 0.0f, 1.0f,              // 18
+	-0.5f + 4.0f, 0.5f, 0.5f, 1.0f, 0.0f, 1.0f,             // 19
 
 	// bottom							   
-	-0.5f, -0.5f, 0.5f, 0.0f, 1.0f, 1.0f,            // 20
-	0.5f, -0.5f, 0.5f, 0.0f, 1.0f, 1.0f,             // 21
-	0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 1.0f,            // 22
-	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 1.0f,           // 23
+	-0.5f + 4.0f, -0.5f, 0.5f, 0.0f, 1.0f, 1.0f,            // 20
+	0.5f + 4.0f, -0.5f, 0.5f, 0.0f, 1.0f, 1.0f,             // 21
+	0.5f + 4.0f, -0.5f, -0.5f, 0.0f, 1.0f, 1.0f,            // 22
+	-0.5f + 4.0f, -0.5f, -0.5f, 0.0f, 1.0f, 1.0f,           // 23
 };
 
 GLuint cubeVertexIndices[] = {
@@ -262,6 +264,7 @@ Engine::Engine(int width, int height)
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, width, height);
 
+
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	//SET CALLBACKS
@@ -279,11 +282,29 @@ Engine::~Engine()
 void Engine::run()
 {
 	// Generates Shader object using shaders default.vert and default.frag
+	//Shader shaderProgram("default.vert", "default.frag");
 	Shader shaderProgram("default.vert", "default.frag");
-	Shader shaderProgram2("default.vert", "default.frag");
 
 	std::vector<GLfloat> sphereVertices = generateSphereVertices(1.0f, 36, 18);
 	std::vector<GLuint> sphereIndices = generateSphereIndices(36, 18);
+
+
+	// Tworzenie obiektu
+	VAO VAO1;
+	VAO1.Bind();
+	// Generates Vertex Buffer Object and links it to vertices
+	VBO VBO1(vertices, sizeof(vertices));
+	// Generates Element Buffer Object and links it to indices
+	EBO EBO1(indices, sizeof(indices));
+	// Links VBO attributes such as coordinates and colors to VAO
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
+	// Unbind all to prevent accidentally modifying them
+	VAO1.Unbind();
+	VBO1.Unbind();
+	EBO1.Unbind();
 
 	// Tworzenie kuli
 	VAO VAOSphere;
@@ -343,6 +364,7 @@ void Engine::run()
 	EBOCube.Unbind();
 
 
+
 	// Shader for light cube
 	Shader lightShader("light.vert", "light.frag");
 	// Generates Vertex Array Object and binds it
@@ -362,29 +384,34 @@ void Engine::run()
 
 
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
+	glm::vec3 lightPos = glm::vec3(0.5f, 1.5f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
-	glm::vec3 pyramidPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 pyramidPos = glm::vec3(1.0f, 0.0f, 1.0f);
 	glm::mat4 pyramidModel = glm::mat4(1.0f);
 	pyramidModel = glm::translate(pyramidModel, pyramidPos);
+
 
 	// Aktualizacja macierzy modelu dla trójkąta
 	glm::vec3 trianglePos = glm::vec3(3.0f, 0.0f, 0.0f);
 	glm::mat4 triangleModel = glm::mat4(1.0f);
 	triangleModel = glm::translate(triangleModel, trianglePos);
 
+	// Aktualizacja macierzy modelu dla trójkąta
+	glm::vec3 cubePos = glm::vec3(3.0f, 0.0f, 5.0f);
+	glm::mat4 cubeModel = glm::mat4(1.0f);
+	cubeModel = glm::translate(cubeModel, cubePos);
+
 	
-	//lightShader.Activate();
-	//glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
-	//glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	lightShader.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
+	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	shaderProgram.Activate();
-	shaderProgram2.Activate();
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgram2.ID, "model"), 1, GL_FALSE, glm::value_ptr(triangleModel));
-	//glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-//	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+
 
 
 
@@ -406,7 +433,7 @@ void Engine::run()
 	brickTex.texUnit(shaderProgram, "tex0", 0);*/
 
 
-	//glfwSwapInterval(1);
+	glfwSwapInterval(1);
 
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
@@ -417,7 +444,6 @@ void Engine::run()
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
-		
 		// Specify the color of the background
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		// Clean the back buffer and depth buffer
@@ -431,37 +457,41 @@ void Engine::run()
 
 		// Tells OpenGL which Shader Program we want to use
 		shaderProgram.Activate();
-		shaderProgram2.Activate();
 		// Exports the camera Position to the Fragment Shader for specular lighting
 		glUniform3f(glGetUniformLocation(shaderProgram.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 		// Export the camMatrix to the Vertex Shader of the pyramid
 		camera.Matrix(shaderProgram, "camMatrix");
 		// Binds texture so that is appears in rendering
-		//brickTex.Bind();
+		brickTex.Bind();
 		// Bind the VAO so OpenGL knows to use it
-		if (draw1)	VAOCube.Bind();
+		//VAO1.Bind();
+		//shaderProgram.setUseTexture(true);
+		if (draw1)	VAO1.Bind();
 		// Draw primitives, number of indices, datatype of indices, index of indices
-		//glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
-
-		if(draw1)glDrawElements(GL_TRIANGLES, sizeof(cubeVertexIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
+		if (draw1)	glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 
 		// Trójkąt 
-		if (draw2)VAOTriangle.Bind();
-		if(draw2) glDrawElements(GL_TRIANGLES, sizeof(triangleIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
+		//shaderProgram.setUseTexture(false);
+		if (draw2)VAOCube.Bind();
+		if (draw2)glDrawElements(GL_TRIANGLES, sizeof(cubeVertexIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 		// Kula
+		//shaderProgram.setUseTexture(false);
 		if (draw3)VAOSphere.Bind();
-		if(draw3) glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0);
+		if (draw3)glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0);
+
+
+		
 
 		// Tells OpenGL which Shader Program we want to use
-		//lightShader.Activate();
+		lightShader.Activate();
 		// Export the camMatrix to the Vertex Shader of the light cube
-		//camera.Matrix(lightShader, "camMatrix");
+		camera.Matrix(lightShader, "camMatrix");
 		// Bind the VAO so OpenGL knows to use it
-		//lightVAO.Bind();
+		lightVAO.Bind();
 		// Draw primitives, number of indices, datatype of indices, index of indices
-		//glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 
 		// Swap the back buffer with the front buffer
@@ -473,12 +503,14 @@ void Engine::run()
 			// TODO: Put the thread to sleep, yield, or simply do nothing
 		}
 		lasttime += 1.0 / fps;
-
 	}
 
 
 
 	// Delete all the objects we've created
+	//VAO1.Delete();
+	//VBO1.Delete();
+	//EBO1.Delete();
 	// Usuwanie sześcianu
 	VAOCube.Delete();
 	VBOCube.Delete();
@@ -534,9 +566,6 @@ int Engine::getHeight()
 {
 	return 0;
 }
-
-
-
 void Engine::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS)
@@ -562,7 +591,7 @@ void Engine::key_callback(GLFWwindow* window, int key, int scancode, int action,
 	}
 	if (key == GLFW_KEY_F3 && action == GLFW_PRESS)
 	{
-		fps = 165;
+		fps = 5;
 	}
 
 	if (key == GLFW_KEY_F4 && action == GLFW_PRESS)
@@ -570,5 +599,3 @@ void Engine::key_callback(GLFWwindow* window, int key, int scancode, int action,
 		fps = 20;
 	}
 }
-
-

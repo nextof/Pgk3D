@@ -99,4 +99,6 @@ void Shader::compileErrors(unsigned int shader, const char* type)
 			std::cout << "SHADER_LINKING_ERROR for:" << type << "\n" << infoLog << std::endl;
 		}
 	}
-}
+}//void Shader::setUseTexture(bool useTexture){
+//	glUniform1i(glGetUniformLocation(ID, "useTexture"), useTexture ? 1 : 0);
+//}
