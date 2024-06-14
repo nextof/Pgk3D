@@ -1,41 +1,39 @@
 #version 330 core
 
-// Positions/Coordinates
+// Pozycje/Wspó³rzêdne
 layout (location = 0) in vec3 aPos;
-// Colors
+// Kolory
 layout (location = 1) in vec3 aColor;
-// Texture Coordinates
+// Wspó³rzêdne tekstury
 layout (location = 2) in vec2 aTex;
-// Normals (not necessarily normalized)
+// Normalne (niekoniecznie znormalizowane)
 layout (location = 3) in vec3 aNormal;
 
-
-// Outputs the color for the Fragment Shader
+// Wyjœcie koloru dla Fragment Shadera
 out vec3 color;
-// Outputs the texture coordinates to the Fragment Shader
+// Wyjœcie wspó³rzêdnych tekstury dla Fragment Shadera
 out vec2 texCoord;
-// Outputs the normal for the Fragment Shader
+// Wyjœcie normalnych dla Fragment Shadera
 out vec3 Normal;
-// Outputs the current position for the Fragment Shader
+// Wyjœcie bie¿¹cej pozycji dla Fragment Shadera
 out vec3 crntPos;
 
-// Imports the camera matrix from the main function
+// Importuje macierz kamery z funkcji g³ównej
 uniform mat4 camMatrix;
-// Imports the model matrix from the main function
+// Importuje macierz modelu z funkcji g³ównej
 uniform mat4 model;
-
 
 void main()
 {
-	// calculates current position
-	crntPos = vec3(model * vec4(aPos, 1.0f));
-	// Outputs the positions/coordinates of all vertices
-	gl_Position = camMatrix * vec4(crntPos, 1.0);
+    // Oblicza bie¿¹c¹ pozycjê
+    crntPos = vec3(model * vec4(aPos, 1.0f));
+    // Przekazuje pozycje/wspó³rzêdne wszystkich wierzcho³ków
+    gl_Position = camMatrix * vec4(crntPos, 1.0);
 
-	// Assigns the colors from the Vertex Data to "color"
-	color = aColor;
-	// Assigns the texture coordinates from the Vertex Data to "texCoord"
-	texCoord = aTex;
-	// Assigns the normal from the Vertex Data to "Normal"
-	Normal = aNormal;
+    // Przypisuje kolory z danych wierzcho³ków do "color"
+    color = aColor;
+    // Przypisuje wspó³rzêdne tekstury z danych wierzcho³ków do "texCoord"
+    texCoord = aTex;
+    // Przypisuje normalne z danych wierzcho³ków do "Normal"
+    Normal = aNormal;
 }

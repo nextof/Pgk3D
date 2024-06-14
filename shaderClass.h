@@ -13,18 +13,37 @@ std::string get_file_contents(const char* filename);
 class Shader
 {
 public:
-	// Reference ID of the Shader Program
-	GLuint ID;
-	// Constructor that build the Shader Program from 2 different shaders
+	
+	GLuint ID;///< ID programu shaderowego
+	/**
+	 * @brief Konstruktor klasy Shader, który buduje program shaderowy na podstawie dwóch ró¿nych shaderów.
+	 *
+	 * @param vertexFile Œcie¿ka do pliku zawieraj¹cego kod shadera wierzcho³ków.
+	 * @param fragmentFile Œcie¿ka do pliku zawieraj¹cego kod shadera fragmentów.
+	 */
 	Shader(const char* vertexFile, const char* fragmentFile);
 
-	// Activates the Shader Program
+	/**
+	 * @brief Metoda aktywuj¹ca program shaderowy.
+	 */
 	void Activate();
-	// Deletes the Shader Program
+	/**
+	 * @brief Metoda usuwaj¹ca program shaderowy.
+	 */
 	void Delete();
-	//void setUseTexture(bool useTexture);
+	/**
+	 * @brief Metoda ustawiaj¹ca flagê okreœlaj¹c¹ u¿ywanie tekstury w shaderze.
+	 *
+	 * @param useTexture Wartoœæ logiczna okreœlaj¹ca, czy u¿ywaæ tekstury (true) czy nie (false).
+	 */
+	void setUseTexture(bool useTexture);
 private:
-	// Checks if the different Shaders have compiled properly
+	/**
+	 * @brief Metoda sprawdzaj¹ca, czy poszczególne shadery zosta³y skompilowane poprawnie.
+	 *
+	 * @param shader Identyfikator shadera (vertex, fragment lub program).
+	 * @param type Typ shadera (VERTEX, FRAGMENT lub PROGRAM).
+	 */
 	void compileErrors(unsigned int shader, const char* type);
 	
 };

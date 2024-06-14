@@ -1,6 +1,12 @@
 #include"shaderClass.h"
 
-// Reads a text file and outputs a string with everything in the text file
+/**
+ * @brief Funkcja wczytuj¹ca zawartoœæ pliku tekstowego i zwracaj¹ca j¹ jako string.
+ *
+ * @param filename Œcie¿ka do pliku tekstowego.
+ * @return Zawartoœæ pliku jako string.
+ * @throw errno W przypadku problemu z otwarciem pliku, zg³asza numer b³êdu.
+ */
 std::string get_file_contents(const char* filename)
 {
 	std::ifstream in(filename, std::ios::binary);
@@ -17,69 +23,73 @@ std::string get_file_contents(const char* filename)
 	throw(errno);
 }
 
-// Constructor that build the Shader Program from 2 different shaders
+/**
+ * @brief Konstruktor klasy Shader, który buduje program shaderowy na podstawie dwóch ró¿nych shaderów.
+ *
+ * @param vertexFile Œcie¿ka do pliku zawieraj¹cego kod shadera wierzcho³ków.
+ * @param fragmentFile Œcie¿ka do pliku zawieraj¹cego kod shadera fragmentów.
+ */
 Shader::Shader(const char* vertexFile, const char* fragmentFile)
 {
-	// Read vertexFile and fragmentFile and store the strings
+	// Wczytanie zawartoœci plików vertexFile i fragmentFile jako stringi
 	std::string vertexCode = get_file_contents(vertexFile);
 	std::string fragmentCode = get_file_contents(fragmentFile);
 
-	// Convert the shader source strings into character arrays
+	// Konwersja Ÿróde³ shaderów na tablice znaków
 	const char* vertexSource = vertexCode.c_str();
 	const char* fragmentSource = fragmentCode.c_str();
 
-	// Create Vertex Shader Object and get its reference
+	// Utworzenie obiektu shadera wierzcho³ków i przypisanie mu Ÿród³a
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	// Attach Vertex Shader source to the Vertex Shader Object
 	glShaderSource(vertexShader, 1, &vertexSource, NULL);
-	// Compile the Vertex Shader into machine code
 	glCompileShader(vertexShader);
-	// Checks if Shader compiled succesfully
+	// Sprawdzenie poprawnoœci kompilacji shadera wierzcho³ków
 	compileErrors(vertexShader, "VERTEX");
 
-	// Create Fragment Shader Object and get its reference
+	// Utworzenie obiektu shadera fragmentów i przypisanie mu Ÿród³a
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	// Attach Fragment Shader source to the Fragment Shader Object
 	glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
-	// Compile the Vertex Shader into machine code
 	glCompileShader(fragmentShader);
-	// Checks if Shader compiled succesfully
+	// Sprawdzenie poprawnoœci kompilacji shadera fragmentów
 	compileErrors(fragmentShader, "FRAGMENT");
 
-	// Create Shader Program Object and get its reference
+	// Utworzenie programu shaderowego i z³¹czenie w nim shaderów wierzcho³ków i fragmentów
 	ID = glCreateProgram();
-	// Attach the Vertex and Fragment Shaders to the Shader Program
 	glAttachShader(ID, vertexShader);
 	glAttachShader(ID, fragmentShader);
-	// Wrap-up/Link all the shaders together into the Shader Program
 	glLinkProgram(ID);
-	// Checks if Shaders linked succesfully
+	// Sprawdzenie poprawnoœci z³¹czenia shaderów w program shaderowy
 	compileErrors(ID, "PROGRAM");
 
-	// Delete the now useless Vertex and Fragment Shader objects
+	// Usuniêcie niepotrzebnych ju¿ obiektów shaderów wierzcho³ków i fragmentów
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
 }
-
-// Activates the Shader Program
+/**
+ * @brief Metoda aktywuj¹ca program shaderowy.
+ */
 void Shader::Activate()
 {
 	glUseProgram(ID);
 }
 
-// Deletes the Shader Program
+/**
+ * @brief Metoda usuwaj¹ca program shaderowy.
+ */
 void Shader::Delete()
 {
 	glDeleteProgram(ID);
 }
-
-// Checks if the different Shaders have compiled properly
+/**
+ * @brief Metoda sprawdzaj¹ca, czy poszczególne shadery zosta³y skompilowane poprawnie.
+ *
+ * @param shader Identyfikator shadera (vertex, fragment lub program).
+ * @param type Typ shadera (VERTEX, FRAGMENT lub PROGRAM).
+ */
 void Shader::compileErrors(unsigned int shader, const char* type)
 {
-	// Stores status of compilation
 	GLint hasCompiled;
-	// Character array to store error message in
 	char infoLog[1024];
 	if (type != "PROGRAM")
 	{
@@ -99,6 +109,12 @@ void Shader::compileErrors(unsigned int shader, const char* type)
 			std::cout << "SHADER_LINKING_ERROR for:" << type << "\n" << infoLog << std::endl;
 		}
 	}
-}//void Shader::setUseTexture(bool useTexture){
-//	glUniform1i(glGetUniformLocation(ID, "useTexture"), useTexture ? 1 : 0);
-//}
+}
+/**
+ * @brief Metoda ustawiaj¹ca wartoœæ flagi okreœlaj¹cej u¿ywanie tekstury w shaderze.
+ *
+ * @param useTexture Wartoœæ logiczna okreœlaj¹ca, czy u¿ywaæ tekstury (true) czy nie (false).
+ */
+void Shader::setUseTexture(bool useTexture){
+	glUniform1i(glGetUniformLocation(ID, "useTexture"), useTexture ? 1 : 0);
+}

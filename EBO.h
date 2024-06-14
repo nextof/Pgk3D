@@ -1,22 +1,36 @@
 #ifndef EBO_CLASS_H
 #define EBO_CLASS_H
 
-#include<glad/glad.h>
+#include <glad/glad.h>
 
 class EBO
 {
 public:
-	// ID reference of Elements Buffer Object
-	GLuint ID;
-	// Constructor that generates a Elements Buffer Object and links it to indices
-	EBO(GLuint* indices, GLsizeiptr size);
+    // ID referencyjny dla Obiektu Bufora Elementów (EBO)
+    GLuint ID;
 
-	// Binds the EBO
-	void Bind();
-	// Unbinds the EBO
-	void Unbind();
-	// Deletes the EBO
-	void Delete();
+    /**
+     * @brief Konstruktor, który generuje Obiekt Bufora Elementów (EBO) i ³¹czy go z danymi indeksów.
+     *
+     * @param indices WskaŸnik do tablicy danych indeksów.
+     * @param size Rozmiar danych indeksów w bajtach.
+     */
+    EBO(GLuint* indices, GLsizeiptr size);
+
+    /**
+     * @brief Wi¹¿e (binduje) EBO.
+     */
+    void Bind();
+
+    /**
+     * @brief Odczepia (unbinduje) EBO.
+     */
+    void Unbind();
+
+    /**
+     * @brief Usuwa EBO.
+     */
+    void Delete();
 };
 
 #endif

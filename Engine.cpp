@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include <vector>
 #include <cmath>
-#define M_PI 3.14159265358979323846
+#define M_PI 3.14159265358979323846 ///< Definicja wartości PI.
 
 
 bool draw1 = true;
@@ -11,8 +11,16 @@ int fps = 60;
 
 
 
-// Okrąg
-// Funkcja generująca wierzchołki kuli
+/**
+ * @brief Funkcja generująca wierzchołki kuli.
+ *
+ * Generuje wierzchołki kuli o podanym promieniu i podanej ilości sektorów i stosów.
+ *
+ * @param radius Promień kuli.
+ * @param sectorCount Liczba sektorów.
+ * @param stackCount Liczba stosów.
+ * @return std::vector<GLfloat> Wektor zawierający współrzędne wierzchołków.
+ */
 std::vector<GLfloat> generateSphereVertices(float radius, int sectorCount, int stackCount) {
 	std::vector<GLfloat> vertices;
 	float x, y, z, xy;
@@ -54,7 +62,15 @@ std::vector<GLfloat> generateSphereVertices(float radius, int sectorCount, int s
 	return vertices;
 }
 
-// Funkcja generująca Indeksy kuli
+/**
+ * @brief Funkcja generująca indeksy kuli.
+ *
+ * Generuje indeksy wierzchołków kuli na podstawie liczby sektorów i stosów.
+ *
+ * @param sectorCount Liczba sektorów.
+ * @param stackCount Liczba stosów.
+ * @return std::vector<GLuint> Wektor zawierający indeksy wierzchołków.
+ */
 std::vector<GLuint> generateSphereIndices(int sectorCount, int stackCount) {
 	std::vector<GLuint> indices;
 	int k1, k2;
@@ -81,39 +97,38 @@ std::vector<GLuint> generateSphereIndices(int sectorCount, int stackCount) {
 }
 
 // Sześcian
-// Sześcian
 GLfloat cubeArray[] = {
-	// front
+	// przód
 	-0.5f+4.0f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,            // 0
 	0.5f + 4.0f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,             // 1
 	0.5f + 4.0f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,              // 2
 	-0.5f + 4.0f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,             // 3
 
-	// top								   
+	// tył								   
 	-0.5f + 4.0f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,            // 4
 	0.5f + 4.0f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,             // 5
 	0.5f + 4.0f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,              // 6
 	-0.5f + 4.0f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,             // 7
 
-	// left								   
+	// lewo						   
 	-0.5f + 4.0f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,            // 8
 	-0.5f + 4.0f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,             // 9
 	-0.5f + 4.0f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,              // 10
 	-0.5f + 4.0f, -0.5f, 0.5f, 0.0f, 1.0f, 0.0f,             // 11
 
-	// right							   
+	// prawo							   
 	0.5f + 4.0f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f,            // 12
 	0.5f + 4.0f, 0.5f, -0.5f, 1.0f, 1.0f, 0.0f,             // 13
 	0.5f + 4.0f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f,              // 14
 	0.5f + 4.0f, -0.5f, 0.5f, 1.0f, 1.0f, 0.0f,             // 15
 
-	// back								   
+	// tył							   
 	-0.5f + 4.0f, -0.5f, 0.5f, 1.0f, 0.0f, 1.0f,            // 16
 	0.5f + 4.0f, -0.5f, 0.5f, 1.0f, 0.0f, 1.0f,             // 17
 	0.5f + 4.0f, 0.5f, 0.5f, 1.0f, 0.0f, 1.0f,              // 18
 	-0.5f + 4.0f, 0.5f, 0.5f, 1.0f, 0.0f, 1.0f,             // 19
 
-	// bottom							   
+	// dół						   
 	-0.5f + 4.0f, -0.5f, 0.5f, 0.0f, 1.0f, 1.0f,            // 20
 	0.5f + 4.0f, -0.5f, 0.5f, 0.0f, 1.0f, 1.0f,             // 21
 	0.5f + 4.0f, -0.5f, -0.5f, 0.0f, 1.0f, 1.0f,            // 22
@@ -121,34 +136,33 @@ GLfloat cubeArray[] = {
 };
 
 GLuint cubeVertexIndices[] = {
-	// front
-	0, 1, 2, // first triangle
-	2, 3, 0, // second triangle
+	// przód
+	0, 1, 2, // pierwszy trójkąt
+	2, 3, 0, // drugi trójkąt
 
-	// top
-	4, 5, 6, // first triangle
-	6, 7, 4, // second triangle
+	// góra
+	4, 5, 6, // pierwszy trójkąt
+	6, 7, 4, // drugi trójkąt
 
-	// left
-	8, 9, 10,  // first triangle
-	10, 11, 8, // second triangle
+	// lewo
+	8, 9, 10,  // pierwszy trójkąt
+	10, 11, 8, // drugi trójkąt
 
-	// right
-	14, 13, 12, // 12, 13, 14, // first triangle
-	12, 15, 14, // 14, 15, 12, // second triangle
+	// prawo
+	14, 13, 12, // pierwszy trójkąt
+	12, 15, 14, // drugi trójkąt
 
-	// back
-	18, 17, 16, // 16, 17, 18, // first triangle
-	16, 19, 18, // 18, 19, 16, // second triangle
+	// tył
+	18, 17, 16, // pierwszy trójkąt
+	16, 19, 18, // drugi trójkąt
 
-	// bottom
-	20, 21, 22, // first triangle
-	22, 23, 20  // second triangle
+	// dół
+	20, 21, 22, // pierwszy trójkąt
+	22, 23, 20  // drugi trójkąt
 };
-
 // Wierzchołki trójkąta
 GLfloat triangleVertices[] = {
-	//     COORDINATES              /        COLORS          /    TexCoord   /        NORMALS       
+	//     Współrzedne              /        kolor         /    texturykordy   /        światło       
 	-0.5f + 3.0f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,    0.0f, 0.0f,      0.0f, -1.0f, 0.0f, // 1
 	-0.5f + 3.0f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,    0.0f, 5.0f,      0.0f, -1.0f, 0.0f, // 2
 	 0.5f + 3.0f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,    5.0f, 5.0f,      0.0f, -1.0f, 0.0f, // 3
@@ -167,44 +181,45 @@ GLuint triangleIndices[] = {
 };
 
 
-// Vertices coordinates
+// Wierzchołki piramidy
 GLfloat vertices[] =
-{ //     COORDINATES     /        COLORS          /    TexCoord   /        NORMALS       //
-	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
+{
+	//     Współrzedne              /        kolor         /    texturykordy   /        światło 
+	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, -1.0f, 0.0f, // DÓŁ
+	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 5.0f,      0.0f, -1.0f, 0.0f, // DÓŁ
+	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 5.0f,      0.0f, -1.0f, 0.0f, //DÓŁ
+	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, -1.0f, 0.0f, // DÓŁ
 
-	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,     -0.8f, 0.5f,  0.0f, // Left Side
+	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // LEWO
+	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // LEWO
+	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,     -0.8f, 0.5f,  0.0f, // LEWO
 
-	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
+	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f, -0.8f, // TYŁ
+	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.0f, 0.5f, -0.8f, // TYŁ
+	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f, -0.8f, // TYŁ
 
-	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
-	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.8f, 0.5f,  0.0f, // Right side
+	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.8f, 0.5f,  0.0f, // PRAWO
+	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.8f, 0.5f,  0.0f, // PRAWO
+	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.8f, 0.5f,  0.0f, // PRAWO
 
-	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
-	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f,  0.8f  // Facing side
+	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f,  0.8f, // FRONT
+	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, 0.5f,  0.8f, // FRONT
+	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f,  0.8f  // FRONT
 };
 
-// Indices for vertices order
+// Indeksy piramidy
 GLuint indices[] =
 {
-	0, 1, 2, // Bottom side
-	0, 2, 3, // Bottom side
-	4, 6, 5, // Left side
-	7, 9, 8, // Non-facing side
-	10, 12, 11, // Right side
-	13, 15, 14 // Facing side
+	0, 1, 2, // DÓŁ
+	0, 2, 3, // DÓŁ
+	4, 6, 5, // LEWO
+	7, 9, 8, // TYŁ
+	10, 12, 11, // PRAWO
+	13, 15, 14 // FRONT
 };
 
 GLfloat lightVertices[] =
-{ //     COORDINATES     //
+{ //     WSPOŁRZDNE     //
 	-0.1f, -0.1f,  0.1f,
 	-0.1f, -0.1f, -0.1f,
 	 0.1f, -0.1f, -0.1f,
@@ -231,7 +246,14 @@ GLuint lightIndices[] =
 	4, 6, 7
 };
 
-
+/**
+	 * @brief Konstruktor klasy Engine.
+	 *
+	 * Inicjalizuje okno GLFW i ustawia profil OpenGL CORE.
+	 *
+	 * @param width Szerokość okna.
+	 * @param height Wysokość okna.
+	 */
 Engine::Engine(int width, int height)
 	: width(width), height(height)
 {
@@ -255,22 +277,25 @@ Engine::Engine(int width, int height)
 		glfwTerminate();
 		return;
 	}
-	// Introduce the window into the current context
+	// Ładowanie okna
 	glfwMakeContextCurrent(window);
 
-	//Load GLAD so it configures OpenGL
+	//Ładowanie GLAD 
 	gladLoadGL();
-	// Specify the viewport of OpenGL in the Window
-	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
+	// Określanie Viewportu
 	glViewport(0, 0, width, height);
 
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-	//SET CALLBACKS
+	// Callbacki dla klawiszy
 	glfwSetKeyCallback(window, key_callback);
 }
-
+/**
+	 * @brief Destruktor klasy Engine.
+	 *
+	 * Zwalnia zasoby związane z oknem GLFW.
+	 */
 Engine::~Engine()
 {
 	// Usuwanie okna przed zakończeniem programu
@@ -278,13 +303,17 @@ Engine::~Engine()
 	// Wyłączenie GLFW przed zakończeniem programu
 	glfwTerminate();
 }
-
+/**
+	 * @brief Metoda uruchamiająca silnik.
+	 *
+	 * Tworzy obiekty VAO, VBO i EBO dla różnych kształtów.
+	 */
 void Engine::run()
 {
-	// Generates Shader object using shaders default.vert and default.frag
-	//Shader shaderProgram("default.vert", "default.frag");
+	// Generowanie Shadera
 	Shader shaderProgram("default.vert", "default.frag");
 
+	// Generowanie wierzchołków i indeksów dla kuli
 	std::vector<GLfloat> sphereVertices = generateSphereVertices(1.0f, 36, 18);
 	std::vector<GLuint> sphereIndices = generateSphereIndices(36, 18);
 
@@ -292,16 +321,16 @@ void Engine::run()
 	// Tworzenie obiektu
 	VAO VAO1;
 	VAO1.Bind();
-	// Generates Vertex Buffer Object and links it to vertices
+	// Generowanie Vertex Buffer Object (VBO) i linkowanie go do wierzchołków
 	VBO VBO1(vertices, sizeof(vertices));
-	// Generates Element Buffer Object and links it to indices
+	// Generowanie Element Buffer Object (EBO) i linkowanie go do indeksów
 	EBO EBO1(indices, sizeof(indices));
-	// Links VBO attributes such as coordinates and colors to VAO
+	// Linkowanie atrybutów VBO, takich jak współrzędne i kolory, do VAO
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
 	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
 	VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
-	// Unbind all to prevent accidentally modifying them
+	// Odbindowanie, aby uniknąć przypadkowej modyfikacji
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
@@ -312,11 +341,11 @@ void Engine::run()
 
 	VBO VBOSphere(sphereVertices.data(), sphereVertices.size() * sizeof(GLfloat));
 	EBO EBOSphere(sphereIndices.data(), sphereIndices.size() * sizeof(GLuint));
-
+	// Linkowanie atrybutów VBO, takich jak współrzędne i kolory, do VAO
 	VAOSphere.LinkAttrib(VBOSphere, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
 	VAOSphere.LinkAttrib(VBOSphere, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	VAOSphere.LinkAttrib(VBOSphere, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-
+	// Odbindowanie, aby uniknąć przypadkowej modyfikacji
 	VAOSphere.Unbind();
 	VBOSphere.Unbind();
 	EBOSphere.Unbind();
@@ -328,32 +357,27 @@ void Engine::run()
 
 	VBO VBOTriangle(triangleVertices, sizeof(triangleVertices));
 	EBO EBOTriangle(triangleIndices, sizeof(triangleIndices));
-
+	// Linkowanie atrybutów VBO, takich jak współrzędne i kolory, do VAO
 	VAOTriangle.LinkAttrib(VBOTriangle, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
 	VAOTriangle.LinkAttrib(VBOTriangle, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
 	VAOTriangle.LinkAttrib(VBOTriangle, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
 	VAOTriangle.LinkAttrib(VBOTriangle, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
-
+	// Odbindowanie, aby uniknąć przypadkowej modyfikacji
 	VAOTriangle.Unbind();
 	VBOTriangle.Unbind();
 	EBOTriangle.Unbind();
 
 
 
-	// Generates Vertex Array Object and binds it
+	// Generowanie Vertex Array Object (VAO) i jego wiązanie
 	VAO VAOCube;
 	VAOCube.Bind();
-	// Generates Vertex Buffer Object and links it to vertices
-	//VBO VBO1(vertices, sizeof(vertices));
 
 	VBO VBOCube(cubeArray, sizeof(cubeArray));
 
-	// Generates Element Buffer Object and links it to indices
-	//EBO EBO1(indices, sizeof(indices));
-
 	EBO EBOCube(cubeVertexIndices, sizeof(cubeVertexIndices));
 
-	// Links VBO attributes such as coordinates and colors to VAO
+	// Linkowanie atrybutów VBO, takich jak współrzędne i kolory, do VAO
 	VAOCube.LinkAttrib(VBOCube, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAOCube.LinkAttrib(VBOCube, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	VAOCube.LinkAttrib(VBOCube, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
@@ -365,33 +389,33 @@ void Engine::run()
 
 
 
-	// Shader for light cube
+	// Shader dla sześcianu światła
 	Shader lightShader("light.vert", "light.frag");
-	// Generates Vertex Array Object and binds it
+	// Generowanie Vertex Array Object (VAO) i jego wiązanie
 	VAO lightVAO;
 	lightVAO.Bind();
-	// Generates Vertex Buffer Object and links it to vertices
+	// Generowanie Vertex Buffer Object (VBO) i linkowanie go do wierzchołków
 	VBO lightVBO(lightVertices, sizeof(lightVertices));
-	// Generates Element Buffer Object and links it to indices
+	// Generowanie Element Buffer Object (EBO) i linkowanie go do indeksów
 	EBO lightEBO(lightIndices, sizeof(lightIndices));
-	// Links VBO attributes such as coordinates and colors to VAO
+	// Linkowanie atrybutów VBO, takich jak współrzędne i kolory, do VAO
 	lightVAO.LinkAttrib(lightVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
-	// Unbind all to prevent accidentally modifying them
+	// Odbindowanie, aby uniknąć przypadkowej modyfikacji
 	lightVAO.Unbind();
 	lightVBO.Unbind();
 	lightEBO.Unbind();
 
 
-
+	// Ustawienie koloru światła i pozycji
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.5f, 1.5f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
+	// Ustawienie piramidy 
 	glm::vec3 pyramidPos = glm::vec3(1.0f, 0.0f, 1.0f);
 	glm::mat4 pyramidModel = glm::mat4(1.0f);
 	pyramidModel = glm::translate(pyramidModel, pyramidPos);
-
 
 	// Aktualizacja macierzy modelu dla trójkąta
 	glm::vec3 trianglePos = glm::vec3(3.0f, 0.0f, 0.0f);
@@ -403,10 +427,12 @@ void Engine::run()
 	glm::mat4 cubeModel = glm::mat4(1.0f);
 	cubeModel = glm::translate(cubeModel, cubePos);
 
-	
+	// Aktywacja shadera dla sześcianu światła
 	lightShader.Activate();
 	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
 	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+
+	// Aktywacja głównego shadera programu
 	shaderProgram.Activate();
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
@@ -414,103 +440,94 @@ void Engine::run()
 
 
 
-
-	/*
-	* I'm doing this relative path thing in order to centralize all the resources into one folder and not
-	* duplicate them between tutorial folders. You can just copy paste the resources from the 'Resources'
-	* folder and then give a relative path from this folder to whatever resource you want to get to.
-	* Also note that this requires C++17, so go to Project Properties, C/C++, Language, and select C++17
-	*/
+	// Ścieżka do katalogu zasobów
 	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
-	std::string texPath = "/Resources/YoutubeOpenGL 7 - Going 3D/";
+	std::string texPath = "/Resources/";
 
-	// Texture
+	// Textura cegieł
 	Texture brickTex((parentDir + texPath + "brick.png").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	//brickTex.texUnit(shaderProgram, "tex0", 0);
 
-	// Original code from the tutorial
-	/*Texture brickTex("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	brickTex.texUnit(shaderProgram, "tex0", 0);*/
 
 
 	glfwSwapInterval(1);
 
-	// Enables the Depth Buffer
+	// Włączenie bufora głębokości
 	glEnable(GL_DEPTH_TEST);
 
-	// Creates camera object
+	// Utworzenie obiektu kamery
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 	double lasttime = glfwGetTime();
-	// Main while loop
+
+	// Główna pętla renderowania
 	while (!glfwWindowShouldClose(window))
 	{
-		// Specify the color of the background
+		// Ustawienie koloru tła
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// Handles camera inputs
+		// Obsługa kamery
 		camera.Inputs(window);
-		// Updates and exports the camera matrix to the Vertex Shader
+		// Aktualizacja i przekazanie macierzy kamery do Vertex Shadera
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
 
-		// Tells OpenGL which Shader Program we want to use
+		// Użycie Shader Programu dla obiektów renderowanych teksturą
 		shaderProgram.Activate();
-		// Exports the camera Position to the Fragment Shader for specular lighting
+		// Przekazanie pozycji kamery do Fragment Shadera dla oświetlenia specularnego
+
 		glUniform3f(glGetUniformLocation(shaderProgram.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-		// Export the camMatrix to the Vertex Shader of the pyramid
+		// Przekazanie macierzy kamery do Vertex Shadera dla piramidy
 		camera.Matrix(shaderProgram, "camMatrix");
-		// Binds texture so that is appears in rendering
+		// Włączenie tekstury do renderowania
 		brickTex.Bind();
-		// Bind the VAO so OpenGL knows to use it
-		//VAO1.Bind();
-		//shaderProgram.setUseTexture(true);
+		// Wiązanie VAO dla piramidy
+		shaderProgram.setUseTexture(true);
 		if (draw1)	VAO1.Bind();
-		// Draw primitives, number of indices, datatype of indices, index of indices
 		if (draw1)	glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 
 		// Trójkąt 
-		//shaderProgram.setUseTexture(false);
+		shaderProgram.setUseTexture(false);
 		if (draw2)VAOCube.Bind();
 		if (draw2)glDrawElements(GL_TRIANGLES, sizeof(cubeVertexIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 		// Kula
-		//shaderProgram.setUseTexture(false);
+		shaderProgram.setUseTexture(false);
 		if (draw3)VAOSphere.Bind();
 		if (draw3)glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0);
 
 
 		
 
-		// Tells OpenGL which Shader Program we want to use
+		// Użycie Shader Programu dla światła
 		lightShader.Activate();
-		// Export the camMatrix to the Vertex Shader of the light cube
+		// Przekazanie macierzy kamery do Vertex Shadera dla sześcianu światła
 		camera.Matrix(lightShader, "camMatrix");
-		// Bind the VAO so OpenGL knows to use it
+		// Wiązanie VAO dla światła
 		lightVAO.Bind();
-		// Draw primitives, number of indices, datatype of indices, index of indices
+		// Rysowanie obiektów, liczba indeksów, typ indeksów, indeksy
+
 		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 
-		// Swap the back buffer with the front buffer
+		// Zamiana bufora tylniego z przednim
 		glfwSwapBuffers(window);
-		// Take care of all GLFW events
+		// Obsługa wszystkich zdarzeń GLFW
 		glfwPollEvents();
+		// Ograniczenie ilości klatek na sekundę
 
 		while (glfwGetTime() < lasttime + 1.0 / fps) {
-			// TODO: Put the thread to sleep, yield, or simply do nothing
+
 		}
 		lasttime += 1.0 / fps;
 	}
 
 
 
-	// Delete all the objects we've created
-	//VAO1.Delete();
-	//VBO1.Delete();
-	//EBO1.Delete();
+	// Usunięcie wszystkich utworzonych obiektów
+	VAO1.Delete();
+	VBO1.Delete();
+	EBO1.Delete();
 	// Usuwanie sześcianu
 	VAOCube.Delete();
 	VBOCube.Delete();
@@ -529,43 +546,83 @@ void Engine::run()
 	lightVBO.Delete();
 	lightEBO.Delete();
 	lightShader.Delete();
-	// Delete window before ending the program
+	// Zniszczenie okna przed zakończeniem programu
 	glfwDestroyWindow(window);
-	// Terminate GLFW before ending the program
+	// Zakończenie GLFW przed zakończeniem programu
 	glfwTerminate();
 }
-
+/**
+ * @brief Aktualizuje stan silnika gry.
+ *
+ * Funkcja odpowiedzialna za aktualizację logiki gry, stanu obiektów i innych danych w silniku.
+ */
 void Engine::update()
 {
 }
-
+/**
+ * @brief Renderuje scenę gry.
+ *
+ * Funkcja odpowiedzialna za renderowanie wszystkich elementów na scenie gry.
+ */
 void Engine::render()
 {
 
 }
-
+/**
+ * @brief Czyści zasoby i sprząta po silniku gry.
+ *
+ * Funkcja odpowiedzialna za zwolnienie pamięci i zasobów używanych przez silnik gry.
+ */
 void Engine::cleanUp()
 {
 }
-
+/**
+ * @brief Ustawia okno GLFW, w którym renderowany jest silnik.
+ *
+ * @param window Wskaźnik na okno GLFW.
+ */
 void Engine::setWindow(GLFWwindow* window)
 {
 }
-
+/**
+ * @brief Pobiera wskaźnik na okno GLFW, w którym renderowany jest silnik.
+ *
+ * @return Wskaźnik na okno GLFW.
+ */
 GLFWwindow* Engine::getWindow()
 {
 	return nullptr;
 }
-
+/**
+ * @brief Zwraca szerokość okna.
+ *
+ * @return Szerokość okna w pikselach.
+ */
 int Engine::getWidth()
 {
 	return 0;
 }
-
+/**
+ * @brief Zwraca wysokość okna.
+ *
+ * @return Wysokość okna w pikselach.
+ */
 int Engine::getHeight()
 {
 	return 0;
 }
+/**
+ * @brief Obsługuje zdarzenia klawiatury.
+ *
+ * Funkcja callback obsługująca zdarzenia klawiatury przekazywane przez GLFW.
+ * Zmienia stany flag `draw1`, `draw2` i `draw3` oraz ustawia liczbę klatek na sekundę (fps) przy użyciu klawiszy funkcyjnych.
+ *
+ * @param window Wskaźnik na okno GLFW, w którym zostało naciśnięte klawisze.
+ * @param key Kod naciśniętego klawisza.
+ * @param scancode Kod skanu klawisza.
+ * @param action Akcja wykonana na klawiszu (np. naciśnięcie, zwolnienie).
+ * @param mods Modyfikatory klawiszy (Ctrl, Shift itp.).
+ */
 void Engine::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS)
@@ -580,7 +637,7 @@ void Engine::key_callback(GLFWwindow* window, int key, int scancode, int action,
 	{
 		draw3 = !draw3;
 	}
-	//change fps on f1-f4
+	//zmiana fps  f1-f4
 	if (key == GLFW_KEY_F1 && action == GLFW_PRESS)
 	{
 		fps = 60;

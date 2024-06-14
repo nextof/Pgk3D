@@ -1,26 +1,36 @@
 #include"VBO.h"
 
-// Constructor that generates a Vertex Buffer Object and links it to vertices
+/**
+	 * @brief Konstruktor tworz¹cy obiekt bufora wierzcho³ków (VBO) i ³¹cz¹cy go z danymi wierzcho³ków.
+	 *
+	 * @param vertices WskaŸnik do danych wierzcho³ków.
+	 * @param size Rozmiar danych wierzcho³ków (w bajtach).
+	 */
 VBO::VBO(GLfloat* vertices, GLsizeiptr size)
 {
 	glGenBuffers(1, &ID);
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
-
-// Binds the VBO
+/**
+	 * @brief Metoda do powi¹zywania obiektu VBO.
+	 */
 void VBO::Bind()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
 }
 
-// Unbinds the VBO
+/**
+	 * @brief Metoda do odbierania powi¹zanego obiektu VBO.
+	 */
 void VBO::Unbind()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-// Deletes the VBO
+/**
+	 * @brief Metoda do usuwania obiektu VBO.
+	 */
 void VBO::Delete()
 {
 	glDeleteBuffers(1, &ID);
